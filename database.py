@@ -4,8 +4,20 @@ import sqlite3 # for database connection
 							   2) transactions ( will be used to strore the transaction performed in a shift) """
 def get_data(id): # to get student data based on ID number
 	pass
+	
 def write_transaction_db(filepath,data,amount): # to write a transaction to database
-	pass
+    data.pop()
+    data.append(int(amount))
+    connection = sqlite3.connect(filepath)
+    cursor = connection.cursor()
+    print(data)
+    new_rows=[tuple(data),]
+    print(new_rows)
+
+    cursor.executemany("INSERT INTO Transactions VALUES(?,?,?)", new_rows)
+    connection.commit()
+    connection.close()
+    
 def get_transactions_db(filepath): # to get all the transactions performed
 	connection = sqlite3.connect(filepath)
 	cursor = connection.cursor()
@@ -23,5 +35,5 @@ def update_data(filepath,data,amount): # for balance updating
 
 
 if __name__ == "__main__":
-	get_transactions_db("student_database.db")
+	pass
 
