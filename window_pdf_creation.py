@@ -1,8 +1,9 @@
 from fpdf import FPDF # for pdf generation
 import PySimpleGUI # for window creation
+import time
 def create_window():
     PySimpleGUI.theme("BlueMono")
-    
+    clock = PySimpleGUI.Text('', key="now")
     label_1 = PySimpleGUI.Text("Enter ID:")
     input_box_1 = PySimpleGUI.InputText(tooltip="Enter ID", key="id")
     label_2 = PySimpleGUI.Text("Enter Amount:")
@@ -16,11 +17,11 @@ def create_window():
     
     
 
-    window = PySimpleGUI.Window('Three_Musketeers.inc', layout=[[label_1, input_box_1],
-                                                            [label_2, input_box_2],
+    window = PySimpleGUI.Window('Three_Musketeers.inc', layout=[[clock], [label_1, input_box_1],
+                                                            [label_2, input_box_2, add_button],
                                                             [list_box]
-        						  , [add_button,EndShift_button]]
-                                			, font=('Helvetica', 15))
+        						  , [EndShift_button]]
+                                			, font=('Helvetica', 20))
 
     return window
 
