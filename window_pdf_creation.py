@@ -1,11 +1,39 @@
 from fpdf import FPDF # for pdf generation
 import PySimpleGUI # for window creation
 def create_window():
-    pass
+    PySimpleGUI.theme("BlueMono")
+    
+    label_1 = PySimpleGUI.Text("Enter ID:")
+    input_box_1 = PySimpleGUI.InputText(tooltip="Enter ID", key="id")
+    label_2 = PySimpleGUI.Text("Enter Amount:")
+    input_box_2 = PySimpleGUI.InputText(tooltip="Enter amount", key="amount", default_text="0")
+
+    add_button = PySimpleGUI.Button("Add")
+    list_box = PySimpleGUI.Listbox(values='', key='transactions',
+                                   enable_events=True, size=(50, 10)) # values should be transactions stored in database
+    
+    EndShift_button = PySimpleGUI.Button("End Shift")  # this will trigger pdf creation
+    
+    
+
+    window = PySimpleGUI.Window('Three_Musketeers.inc', layout=[[label_1, input_box_1],
+                                                            [label_2, input_box_2],
+                                                            [list_box]
+        						  , [add_button,EndShift_button]]
+                                			, font=('Helvetica', 15))
+
+    return window
 
 def generate_pdf(rows,timestamp):
     pass
     
 if __name__ == "__main__":
-	pass
+	window=create_window()
+	while True:
+		event,values=window.read(timeout=200)
+		
+		if(event == PySimpleGUI.WIN_CLOSED):
+			break
+		print(event)
+		print(values)
 	
