@@ -14,13 +14,14 @@ def create_window():
                                    enable_events=True, size=(50, 10)) # values should be transactions stored in database
     
     EndShift_button = PySimpleGUI.Button("End Shift")  # this will trigger pdf creation
-    
+    exit_button = PySimpleGUI.Button("Exit")
+    Message = PySimpleGUI.Text("Shift has started !", key="message")
     
 
     window = PySimpleGUI.Window('Three_Musketeers.inc', layout=[[clock], [label_1, input_box_1],
                                                             [label_2, input_box_2, add_button],
                                                             [list_box]
-        						  , [EndShift_button]]
+        						  , [exit_button,EndShift_button], [Message]]
                                 			, font=('Helvetica', 20))
 
     return window
