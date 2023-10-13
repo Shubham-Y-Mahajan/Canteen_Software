@@ -18,6 +18,7 @@ def create_window():
     Message = PySimpleGUI.Text("Shift has started !", key="message")
     
 
+
     window = PySimpleGUI.Window('Three_Musketeers.inc', layout=[[clock], [label_1, input_box_1],
                                                             [label_2, input_box_2, add_button],
                                                             [list_box]
