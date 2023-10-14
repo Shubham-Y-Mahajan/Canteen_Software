@@ -43,7 +43,16 @@ def get_transactions_db(filepath): # to get all the transactions performed
 
  	
 def update_data(filepath,data,amount): # for balance updating
-    pass
+    connection = sqlite3.connect(filepath)
+    cursor = connection.cursor()
+    balance_left=data[2]-amount
+    if balance_left<0:
+        return 0
+    else:
+        cursor.execute(f"UPDATE Student_Info SET Balance = {balance_left} WHERE ID='{data[0]}'")
+        connection.commit()
+        connection.close()
+        return balance_left
 
 
 if __name__ == "__main__":
