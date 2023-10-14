@@ -1,5 +1,5 @@
-from fpdf import FPDF # for pdf generation
-import PySimpleGUI # for window creation
+from fpdf import FPDF
+import PySimpleGUI
 from database import get_transactions_db
 import time
 def create_window():
@@ -11,20 +11,18 @@ def create_window():
     input_box_2 = PySimpleGUI.InputText(tooltip="Enter amount", key="amount", default_text="0")
 
     add_button = PySimpleGUI.Button("Add")
-    list_box = PySimpleGUI.Listbox(values='', key='transactions',
-                                   enable_events=True, size=(50, 10)) # values should be transactions stored in database
+    list_box = PySimpleGUI.Listbox(values=get_transactions_db("student_database.db"), key='transactions',
+                                   enable_events=True, size=(50, 10))
     
-    EndShift_button = PySimpleGUI.Button("End Shift")  # this will trigger pdf creation
+    EndShift_button = PySimpleGUI.Button("End Shift")
     exit_button = PySimpleGUI.Button("Exit")
     Message = PySimpleGUI.Text("Shift has started !", key="message")
-    
-
 
     window = PySimpleGUI.Window('Three_Musketeers.inc', layout=[[clock], [label_1, input_box_1],
                                                             [label_2, input_box_2, add_button],
                                                             [list_box]
-        						  , [exit_button,EndShift_button], [Message]]
-                                			, font=('Helvetica', 20))
+        , [exit_button, EndShift_button], [Message]]
+                                , font=('Helvetica', 20))
 
     return window
 

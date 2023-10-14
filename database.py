@@ -1,8 +1,6 @@
-import sqlite3 # for database connection
-
-""" Two tables to be created - 1) student information ( which will be accessed by ID number)
-							   2) transactions ( will be used to strore the transaction performed in a shift) """
-def get_data(id): # to get student data based on ID number
+import sqlite3
+		
+def get_data(id):
     try:
         connection = sqlite3.connect("student_database.db")
         cursor = connection.cursor()
@@ -16,8 +14,19 @@ def get_data(id): # to get student data based on ID number
         return data
     except IndexError:
         return 0
-	
-def write_transaction_db(filepath,data,amount): # to write a transaction to database
+
+def get_transactions_db(filepath):
+
+    connection = sqlite3.connect(filepath)
+    cursor = connection.cursor()
+
+    cursor.execute(f"SELECT * FROM Transactions ")
+    rows = cursor.fetchall()
+    print(rows)
+
+    connection.close()
+    return rows
+def write_transaction_db(filepath,data,amount):
     data.pop()
     data.append(int(amount))
     connection = sqlite3.connect(filepath)
@@ -29,25 +38,12 @@ def write_transaction_db(filepath,data,amount): # to write a transaction to data
     cursor.executemany("INSERT INTO Transactions VALUES(?,?,?)", new_rows)
     connection.commit()
     connection.close()
-    
-def get_transactions_db(filepath): # to get all the transactions performed
-	connection = sqlite3.connect(filepath)
-	cursor = connection.cursor()
-
-	cursor.execute(f"SELECT * FROM Transactions ")
-	rows = cursor.fetchall()
-	print(rows)
-
-	connection.close()
-	return rows
-
- 	
-def update_data(filepath,data,amount): # for balance updating
+def update_data(filepath,data,amount):
     connection = sqlite3.connect(filepath)
     cursor = connection.cursor()
     balance_left=data[2]-amount
     if balance_left<0:
-        return -1
+        return 0
     else:
         cursor.execute(f"UPDATE Student_Info SET Balance = {balance_left} WHERE ID='{data[0]}'")
         connection.commit()
@@ -64,7 +60,7 @@ def end_shift(filepath):
     connection.commit()
     connection.close()
     return rows
-
+    
 if __name__ == "__main__":
-	pass
+	get_transactions_db("student_database.db")
 
