@@ -54,6 +54,16 @@ def update_data(filepath,data,amount): # for balance updating
         connection.close()
         return balance_left
 
+def end_shift(filepath):
+    connection = sqlite3.connect(filepath)
+    cursor = connection.cursor()
+
+    cursor.execute(f"SELECT * FROM Transactions ")
+    rows = cursor.fetchall()
+    cursor.execute(f"DELETE FROM Transactions ")
+    connection.commit()
+    connection.close()
+    return rows
 
 if __name__ == "__main__":
 	pass
