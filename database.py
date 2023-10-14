@@ -47,7 +47,7 @@ def update_data(filepath,data,amount): # for balance updating
     cursor = connection.cursor()
     balance_left=data[2]-amount
     if balance_left<0:
-        return 0
+        return -1
     else:
         cursor.execute(f"UPDATE Student_Info SET Balance = {balance_left} WHERE ID='{data[0]}'")
         connection.commit()
